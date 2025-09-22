@@ -1,0 +1,49 @@
+1) Variantes de diseño útiles
+
+Globos + propulsión horizontal (airship clásico, semi-rígido)
+
+Descripción: Globo principal que proporciona la mayor parte de la sustentación; motores/hélices para empuje horizontal y timones para dirección.
+
+Pros: Estable, buena autonomía horizontal, relativamente simple.
+
+Contras: Maniobrabilidad limitada en hover; volumen grande.
+
+Globo + hélices vectoreadas (VTOL híbrido)
+
+Descripción: Globo que carga la mayor parte del peso más varios motores con hélices que pueden inclinarse para generar empuje vertical/horizontal.
+
+Pros: Despegue/aterrizaje vertical; control fino de posicionamiento.
+
+Contras: Más complejidad mecánica (mecanismo de vectorizado), mayor consumo en maniobras.
+
+Globo + multirotor alrededor (globo en ‘isla’ con quad/octo rotores)
+
+Descripción: Globo aporta flotabilidad estática; rotores controlan la altitud y la orientación (similar a quad añadiendo flotación).
+
+Pros: Excelente control de actitud y posición; menor requerimiento de volumen de helio (los rotores compensan parte).
+
+Contras: Mucha energía consumida por los rotores; la integración aerodinámica es complicada.
+
+Globo + ala/planeador (híbrido aerostático-aerodinámico)
+
+Descripción: Globo para sustentación a baja velocidad; alas para sustentación aerodinámica cuando hay avance.
+
+Pros: Eficiencia alta en crucero (ahorro de energía), mejor estabilidad direccional.
+
+Contras: Requiere velocidad mínima para que las alas funcionen; manejo en baja velocidad más complejo.
+
+Globo + hélices dentro de conductos (ducted fans)
+
+Descripción: Hélices dentro de túneles (ductos) que aumentan eficiencia y protegen las palas.
+
+Pros: Mayor eficiencia por tamaño compacto, más seguro (palas protegidas).
+
+Contras: Fabricación más compleja y peso adicional del ducto.
+
+Tethered (amarrado) con globo + motores
+
+Descripción: Globo sujeto a tierra con cable; motores sirven para maniobras menores o estabilización.
+
+Pros: Muy seguro para pruebas; no necesitas tanta autonomía ni gran batería.
+
+Contras: No es libre (limitación por el cable).

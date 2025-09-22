@@ -1,0 +1,122 @@
+Perfecto — te doy **soluciones similares** (alternativas de diseño) para una aeronave que use **globo de helio + motores**, con pros/cons, recomendaciones de componentes, medidas de seguridad y ejemplos de cálculo (hecho paso a paso).
+
+# 1) Variantes de diseño útiles
+
+1. **Globos + propulsión horizontal (airship clásico, semi-rígido)**
+
+   * Descripción: Globo principal que proporciona la mayor parte de la sustentación; motores/hélices para empuje horizontal y timones para dirección.
+   * Pros: Estable, buena autonomía horizontal, relativamente simple.
+   * Contras: Maniobrabilidad limitada en hover; volumen grande.
+
+2. **Globo + hélices vectoreadas (VTOL híbrido)**
+
+   * Descripción: Globo que carga la mayor parte del peso más varios motores con hélices que pueden inclinarse para generar empuje vertical/horizontal.
+   * Pros: Despegue/aterrizaje vertical; control fino de posicionamiento.
+   * Contras: Más complejidad mecánica (mecanismo de vectorizado), mayor consumo en maniobras.
+
+3. **Globo + multirotor alrededor (globo en ‘isla’ con quad/octo rotores)**
+
+   * Descripción: Globo aporta flotabilidad estática; rotores controlan la altitud y la orientación (similar a quad añadiendo flotación).
+   * Pros: Excelente control de actitud y posición; menor requerimiento de volumen de helio (los rotores compensan parte).
+   * Contras: Mucha energía consumida por los rotores; la integración aerodinámica es complicada.
+
+4. **Globo + ala/planeador (híbrido aerostático-aerodinámico)**
+
+   * Descripción: Globo para sustentación a baja velocidad; alas para sustentación aerodinámica cuando hay avance.
+   * Pros: Eficiencia alta en crucero (ahorro de energía), mejor estabilidad direccional.
+   * Contras: Requiere velocidad mínima para que las alas funcionen; manejo en baja velocidad más complejo.
+
+5. **Globo + hélices dentro de conductos (ducted fans)**
+
+   * Descripción: Hélices dentro de túneles (ductos) que aumentan eficiencia y protegen las palas.
+   * Pros: Mayor eficiencia por tamaño compacto, más seguro (palas protegidas).
+   * Contras: Fabricación más compleja y peso adicional del ducto.
+
+6. **Tethered (amarrado) con globo + motores**
+
+   * Descripción: Globo sujeto a tierra con cable; motores sirven para maniobras menores o estabilización.
+   * Pros: Muy seguro para pruebas; no necesitas tanta autonomía ni gran batería.
+   * Contras: No es libre (limitación por el cable).
+
+# 2) Recomendaciones de arquitectura (componentes clave)
+
+* **Sobreenvoltura (envelope):** material ligero y resistente (mylar reforzado o poliuretano recubierto). Considera costuras reforzadas y una válvula de alivio.
+* **Arnés / gondola:** estructura para motores, control y batería; usar aluminio o fibra de carbono según presupuesto.
+* **Motores / hélices:** motores brushless (KV acorde al tamaño), hélices protegidas con rejillas o ductos.
+* **Control:** controlador de vuelo con IMU + GPS para estabilidad; si hay vectores, servos robustos.
+* **Batería:** LiPo/Li-ion con capacidad acorde a consumo de motores. Para seguridad, portar BMS y fusibles.
+* **Sistemas de seguridad:** válvula de alivio, paracaídas de emergencia (para cargas críticas), cortacorrientes, guardas de hélices.
+* **Instrumentación:** sensor de presión (altímetro), sensores de corriente/voltaje, cámara (si se necesita).
+
+# 3) Reglas de diseño y criterios prácticos
+
+* **Margen de flotación**: no diseñes para que el helio sostenga *exactamente* el peso; deja 20–30% de exceso de flotabilidad para maniobras, baterías, viento y margen de seguridad.
+* **Relación empuje/peso (si hay motores que deben levantar):** para VTOL, busca al menos 1.2–1.5× del peso total en empuje estático.
+* **Distribución de masa:** mantén el centro de gravedad centrado respecto al centro de flotación (centro geométrico del globo) para evitar guiñadas/caídas.
+* **Protección de hélices:** imprescindible si hay personas cerca.
+
+# 4) Cálculo de sustentación del helio (ejemplos paso a paso)
+
+Datos físicos aproximados (nivel del mar):
+
+* Densidad del aire $\rho_{aire} = 1{.}225\ \text{kg/m}^3$.
+* Densidad del helio $\rho_{He} = 0{.}1785\ \text{kg/m}^3$.
+* Empuje neto por metro cúbico = $\rho_{aire} - \rho_{He}$.
+
+Cálculo:
+
+1. Resta densidades:
+
+   * $1{.}225 - 0{.}1785 = 1{.}0465\ \text{kg/m}^3.$
+   * Eso significa que **cada 1 m³ de helio puede levantar aproximadamente 1{.}0465 kg** (antes de contar el peso del sobre/envelope y del arnés).
+
+2. Ejemplo práctico: quieres un **margen total de 5 kg** disponible para (carga útil + peso de estructura ligera + batería).
+
+   * Volumen requerido = $ \dfrac{5}{1{.}0465}\ \text{m}^3.$
+   * Hacemos la división paso a paso:
+
+     * $1{.}0465 \times 4 = 4{.}1860.$ (aún falta por cubrir hasta 5)
+     * Resto: $5 - 4{.}1860 = 0{.}8140.$
+     * $1{.}0465 \times 0{.}7 = 0{.}73255.$ (sumamos: $4{.}1860 + 0{.}73255 = 4{.}91855$)
+     * Resto: $5 - 4{.}91855 = 0{.}08145.$
+     * $1{.}0465 \times 0{.}077 = 0{.}0805755.$ (sumamos: $4{.}91855 + 0{.}0805755 = 4{.}9991255$)
+     * Resultado aproximado: **4{.}777 m³** (redondeando) — ese volumen de helio te daría \~5 kg de empuje neto.
+
+3. Otros ejemplos rápidos:
+
+   * Para **1 kg** → volumen = $1 ÷ 1{.}0465 ≈ 0{.}956\ \text{m}^3.$
+   * Para **10 kg** → volumen = $10 ÷ 1{.}0465 ≈ 9{.}554\ \text{m}^3.$
+
+**Nota:** al volumen calculado aún debes restar el peso del sobre/envelope, arnés, motores y batería. Por eso siempre deja margen adicional (20–30%).
+
+# 5) Ejemplo de dimensionamiento de motores (regla rápida)
+
+* Si el total de masa **efectiva** (incluyendo estructura y margen de seguridad) es 5 kg y quieres capacidad VTOL con empuje 1.5×:
+
+  * Empuje requerido ≈ $5\ \text{kg} × 1{.}5 = 7{.}5\ \text{kgf}$.
+  * Si usas 4 motores (quad), empuje por motor ≈ $7{.}5 ÷ 4 = 1{.}875\ \text{kgf}$ por motor.
+  * Conviene elegir motores y hélices que puedan dar un poco más (2–2{.}5 kgf por motor) para margen y control.
+
+# 6) Seguridad y pruebas recomendadas (plan de experimentos)
+
+* **Prueba 1 — Globo vacío:** inflar y comprobar pérdidas (24 h).
+* **Prueba 2 — Prueba de flotación estática:** inflar y colgar pesos medidos gradualmente para verificar lift real.
+* **Prueba 3 — Banco de pruebas de motor:** montar motor + hélice en banco y medir empuje con dinamómetro.
+* **Prueba 4 — Ensayo tethered:** volar amarrado y probar controladores, respuesta de motores y comportamiento en viento leve.
+* **Prueba 5 — Vuelo libre de baja altitud:** solo cuando anteriores OK; mantener zona despejada y medidas de emergencia.
+
+# 7) Pros/Contras resumidos y cuándo elegir cada solución
+
+* **Airship clásico:** elegir si buscas simplicidad y vuelos de baja velocidad largos.
+* **VTOL vectoreado / multirotor:** elegir si necesitas precisión de posicionamiento y despegue/aterrizaje controlado.
+* **Ala híbrida:** elegir si tu objetivo es eficiencia en crucero y viajes más largos.
+* **Tethered:** ideal para pruebas educativas y demostraciones seguras.
+
+---
+
+¿Quieres que convierta esto en:
+
+* A) Una **guía lista para subir** a la página web del grupo (con secciones y preguntas para responder), o
+* B) Una **lista de comprobación** (checklist) para llevar a los ensayos y pruebas?
+
+Dime cuál prefieres y lo preparo inmediatamente.
